@@ -118,17 +118,18 @@ class UsersController extends AppController
             if ($this->Auth->login()) {
                 return $this->redirect($this->Auth->redirect());
             }
-            $this->Session->setFlash(__('Your username or password was incorrect.'));
+            $this->Flash->error(__('Your username or password was incorrect.'));
         }
         if ($this->Session->read('Auth.User')) {
-            $this->Session->setFlash('You are logged in!');
-            $this->redirect('/', null, false);
+            $this->Flash->success(__('You are logged in!'));
+            $this->redirect('index', null, false);
         }
     }
 
     public function logout()
     {
-        //ここは、今は空にしておいてください
+        $this->Flash->set('Good-Bye');
+        $this->redirect($this->Auth->logout());
     }
 
     /*    public function beforeFilter() {
